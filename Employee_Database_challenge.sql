@@ -36,3 +36,24 @@ join employees as e on ut.emp_no = e.emp_no
 WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 group by ut.title
 order by 1 desc;
+
+
+SELECT DISTINCT ON (e.emp_no) e.emp_no,
+e.first_name,
+e.last_name,
+e.birth_date,
+de.from_date,
+de.to_date,
+t.title
+INTO mentorship_program
+from employees as e
+LEFT JOIN titles as t
+ON (e.emp_no = t.emp_no)
+LEFT JOIN dept_emp as de
+ON (e.emp_no = de.emp_no)
+ORDER BY e.emp_no, de.to_date DESC
+select * from mentorship_program where 
+birth_date between '1965-01-01' and '1965-12-31'
+and to_date > current_date
+order by emp_no;
+select CURRENT_DATE;
